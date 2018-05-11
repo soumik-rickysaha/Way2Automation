@@ -3,7 +3,7 @@
 <suite name="Suite">
   <test name="Test">
     <classes>
-      <class name="SeleniumPractise.Way2Automation.AppTest"/>
+      <class name="SeleniumPractise.Way2Automation.Way2AutomationLogin"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
