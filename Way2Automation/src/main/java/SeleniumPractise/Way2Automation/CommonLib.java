@@ -34,7 +34,14 @@ public class CommonLib {
 	}
 	
 	public String FetchCurrentURL() {
-		return driver.getCurrentUrl().toString();	
-		
+		return driver.getCurrentUrl().toString();			
+	}
+	
+	public WebDriver GetDriverInstance() {
+		return driver;		
+	}
+	
+	public WebDriverWait GetDriverWaitInstance() {
+		return wait;
 	}
 }
