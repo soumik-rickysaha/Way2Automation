@@ -5,6 +5,8 @@ import static org.testng.Assert.assertFalse;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -24,8 +26,9 @@ import com.beust.jcommander.Parameter;
 public class Way2AutomationLogin {
 	CommonLib Clib;
 	String URL = "http://www.way2automation.com/demo.html";
-	WebDriver driver;
-	WebDriverWait wait;
+	static WebDriver driver;
+	static WebDriverWait wait;
+	public static Logger logger=Logger.getLogger("Way2Automation");;
 
 	// Page objects
 
@@ -39,7 +42,10 @@ public class Way2AutomationLogin {
 	
 	@BeforeSuite
 	public void LaunchBrowser() {
-		Clib = new CommonLib();
+		
+		PropertyConfigurator.configure("Log4j.properties");
+		
+		Clib = new CommonLib();		
 		Clib.Setup();
 		driver = Clib.LaunchBrowser(URL);
 		wait = Clib.GetDriverWaitInstance();
@@ -56,7 +62,7 @@ public class Way2AutomationLogin {
 	@Test(priority=1)
 	@Parameters({"Username","password"})
 	public void LoginToApp(String Uname,String Pass) throws InterruptedException {
-
+		logger.info("Logging into the application");
 		wait.until(ExpectedConditions.elementToBeClickable(ResignationTab));
 		driver.findElement(ResignationTab).click();
 		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
@@ -66,17 +72,26 @@ public class Way2AutomationLogin {
 		wait.until(ExpectedConditions.elementToBeClickable(SigninLink));
 		driver.findElement(SigninLink).click();
 		wait.until(ExpectedConditions.visibilityOf(driver.findElement(Username)));
+		logger.info("Entering the Username : "+ Uname);
 		driver.findElement(Username).sendKeys(Uname);
+		logger.info("Entering the Password : "+ Pass);
 		driver.findElement(Password).sendKeys(Pass);
+		logger.info("Clicking on the submit button");
 		driver.findElement(SubmitButton).click();
 		Thread.sleep(3000);
 		Assert.assertTrue(driver.findElement(By.xpath("//a[text()='Widget']")).isDisplayed());
 	}
 	
 	@Test(priority=2)
-	public void WidgetMenuTest() throws InterruptedException {
+	public void WidgetMenuTest() {
 		Widget_MenuPage MP=new Widget_MenuPage(driver);
-		MP.NavigatetoMenuInWidget();
+		try {
+			MP.NavigatetoMenuInWidget();
+			MP.MenuWithSubMenu();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@AfterSuite

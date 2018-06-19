@@ -10,8 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Test;
 
 public class Widget_MenuPage {
 
@@ -20,6 +20,22 @@ public class Widget_MenuPage {
 	
 	@FindBy(xpath="//a[text()='Menu']")
 	WebElement Menu;
+	
+	@FindBy(xpath="//a[text()='Menu With Sub Menu']")
+	WebElement MenuWithSubMenuHeader;
+	
+	@FindBy(how=How.CLASS_NAME,using="demo-frame")
+	WebElement MenuWithSubMenuHeader_iframe;
+	
+	@FindBy(how=How.XPATH,using="//ul[@aria-activedescendant='ui-id-18']//following-sibling::li[2]")
+	WebElement Adamsville;
+	
+	@FindBy(how=How.XPATH,using="//ul[@aria-expanded='true']/li[text()='Sub Menu 4']")
+	WebElement Adamville_SubMenu4;
+	
+	@FindBy(how=How.XPATH,using="//*[@id=\"example-1-tab-2\"]/div/iframe")
+	WebElement SubmenuIframe;
+	
 	
 	//declaring variables
 	
@@ -45,17 +61,13 @@ public class Widget_MenuPage {
 		Thread.sleep(5000);
 	}
 
-	/*@Test
-	public void Menu() throws InterruptedException {
-		List<WebElement> WidgetsSubitems = driver.findElements(By.xpath("//*[@id=\"toggleNav\"]/li[3]/ul/li[4]/a"));
-		for (int i = 0; i<=WidgetsSubitems.size(); i++) {
-			if (WidgetsSubitems.get(i).getText().equalsIgnoreCase("Menu")) {
-				WidgetMenu(WidgetsSubitems.get(i));
-			}
-		}
-		
-		Thread.sleep(5000);
-	}*/
+	public void MenuWithSubMenu() {
+		driver.switchTo().frame(SubmenuIframe);
+		Actions ac=new Actions(driver);
+		Action soa=ac.moveToElement(Adamsville).click().moveToElement(Adamville_SubMenu4).click().build();
+		soa.perform();
+		System.out.println(Adamville_SubMenu4.getText());
+	}
 }
 
 

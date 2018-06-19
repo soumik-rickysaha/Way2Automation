@@ -8,6 +8,7 @@
           <include name="LaunchBrowser"/>
           <include name="Closebrowser"/>
           <include name="LoginToApp"/>
+          <include name="WidgetMenuTest"/>
         </methods>
       </class> <!-- SeleniumPractise.Way2Automation.Way2AutomationLogin -->
     </classes>

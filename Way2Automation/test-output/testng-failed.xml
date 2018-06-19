@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
-  <test name="Test(failed)">
-    <parameter name="password" value="qwerty12345"/>
-    <parameter name="Username" value="jamessmith"/>
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
     <classes>
       <class name="SeleniumPractise.Way2Automation.Way2AutomationLogin">
         <methods>
           <include name="LaunchBrowser"/>
           <include name="Closebrowser"/>
+          <include name="LoginToApp"/>
           <include name="WidgetMenuTest"/>
         </methods>
       </class> <!-- SeleniumPractise.Way2Automation.Way2AutomationLogin -->
     </classes>
-  </test> <!-- Test(failed) -->
-</suite> <!-- Failed suite [Suite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
